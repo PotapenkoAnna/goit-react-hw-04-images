@@ -5,9 +5,10 @@ import Button from './Button/Button'
 import Modal from './Modal/Modal'
 import Loader from './Loader/Loader';
 import css from './App.module.css';   
-import axios from 'axios'; 
+ 
+import api from '../services/API';     
 
-const App = () => {
+const App = () => { 
   const [query, setQuery] = useState('');
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -17,26 +18,29 @@ const App = () => {
   const [largeImageUrl, setlargeImageUrl] = useState('');
 
    useEffect(() => {
-    const makeApiCall = () => {
+    const makeApiCall = async () => { 
       if (!query) {
         return;
       }
 
       const PER_PAGE = 12;
-      const API_KEY = '40277223-6e47b6051d1728ad5e673f158';
-      const searchUrl = `https://pixabay.com/api/?q=${encodeURIComponent(
-      query
-    )}&page=${page}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=${PER_PAGE}`;
 
-      setIsLoading(true);
-    axios.get(searchUrl).then(response => {
-      const totalPages = Math.round(response.data.totalHits / PER_PAGE);
-      const loadedImages = response.data.hits;
+      try {
+        setIsLoading(true);
+
+        const response = await api.fetchImages(query, page);
+        const totalPages = Math.round(response.totalHits / PER_PAGE);
+        const loadedImages = response.hits;
+
       setTotalPages(totalPages);
       setImages(prevImages => [...prevImages, ...loadedImages]);
       setIsLoading(false);
-    });
-  };
+    } catch (error) {
+        console.error('Error fetching images:', error.message);
+        setIsLoading(false);
+      }
+    };
+  
     makeApiCall();
   }, [query, page]);
 
@@ -57,11 +61,10 @@ const handleSearch = searchValue => {
      setIsModalOpen(true);
    };
 
-   const handleModalClickClose = event => {
-     if (event.target.id === 'modal' && isModalOpen) {
-    setIsModalOpen(false);
-     }
-   };
+   const handleModalClickClose = () => { 
+     setIsModalOpen(false);
+     setlargeImageUrl("")
+   }; 
 
    const handleModalClose = () => {
     setIsModalOpen(false);

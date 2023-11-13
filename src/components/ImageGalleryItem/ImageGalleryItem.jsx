@@ -8,10 +8,7 @@ const ImageGalleryItem = ({ image, onImgClick }) => {
         className={css.img}
         src={image.webformatURL}
         alt={image.tags}
-        data-largeimg={image.largeImageURL}
-        onClick={event => {
-          onImgClick(event.target.dataset.largeimg);
-        }}
+        onClick={() => onImgClick(image.largeImageURL)}    
       />
     </li>
   );

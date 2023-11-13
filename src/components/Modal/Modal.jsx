@@ -14,10 +14,15 @@ const Modal = props => {
             document.addEventListener('keydown', handleKeyPress);
         };
     }, [props]);
-
   
+  const handleClose = (e) => {
+    if (e.target === e.currentTarget) {
+      props.onClickClose() 
+    }
+  }
+   
   return (
-    <div id="modal" onClick={props.onClickClose} className={css.overlay}>
+    <div id="modal" onClick={handleClose} className={css.overlay}>
       <div className={css.modal}>
         <img
           src={props.largeImageUrl}
