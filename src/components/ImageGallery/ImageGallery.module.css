@@ -9,18 +9,4 @@
     list-style: none;
     margin-left: auto;
     margin-right: auto;
-}
-
-.title,
-.message,
-.error {
-    color: #3f51b5;
-    font-size: 32px;
-    font-weight: 700;
-    margin-top: 21.5px;
-    text-align: center;
-}
-
-.error {
-    color: red;
-} 
+}  
