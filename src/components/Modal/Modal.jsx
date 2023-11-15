@@ -5,7 +5,7 @@ const Modal = props => {
     useEffect(() => {
         const handleKeyPress = event => {
             if (event.keyCode === 27) {
-                props.onClose();
+                props.onClickClose();
             }
         };
 
@@ -32,7 +32,7 @@ const Modal = props => {
     </div>  
   );
 }
-
+ 
 export default Modal;
 
 

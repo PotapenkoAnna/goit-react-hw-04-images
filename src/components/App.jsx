@@ -66,10 +66,10 @@ const handleSearch = searchValue => {
      setlargeImageUrl("")
    }; 
 
-   const handleModalClose = () => {
-    setIsModalOpen(false);
-   };
-   
+  // const handleModalClose = () => {
+  //  setIsModalOpen(false);
+  // };
+    
  const  fetchMoreImages = () => {
     setPage(prevPage => prevPage + 1);
    };
@@ -84,7 +84,7 @@ const handleSearch = searchValue => {
         {isModalOpen && (
           <Modal
             largeImageUrl={largeImageUrl}
-            onClose={handleModalClose}
+//            onClose={handleModalClose}
             onClickClose={handleModalClickClose}
             id={images.id}
           />
